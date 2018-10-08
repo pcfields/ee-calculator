@@ -7,20 +7,16 @@ const propTypes = {
   branding: PropTypes.string
 }
 
-class Caculator extends Component {
+class Calculator extends Component {
   render() {
-    const {branding} = this.props;
-
     return (
       <div className="Calculator">
-        {branding && <header className="Calculator-branding">
-          <img width="200" src={branding} alt="[=] Equal Experts" />
-        </header>}
+
       </div>
     );
   }
 }
 
-Caculator.propTypes = propTypes;
+Calculator.propTypes = propTypes;
 
-export default Caculator;
+export default Calculator;
