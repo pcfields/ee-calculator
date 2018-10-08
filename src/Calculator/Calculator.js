@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import 'jest-dom/extend-expect';
 
 import './Calculator.css';
 
