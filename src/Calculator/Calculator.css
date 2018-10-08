@@ -1,0 +1,10 @@
+.Calculator {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.Calculator-branding {
+  padding: 20px;
+  background: #1795d4;
+  text-align: center;
+}
