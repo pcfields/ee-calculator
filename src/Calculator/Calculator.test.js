@@ -26,7 +26,7 @@ test('Calculator should display number selected selected', () => {
   expect(calculatorDisplayText).toEqual('9');
 });
 
-test('Calcutor should display number selected selected', () => {
+test('Calculator should display number selected selected', () => {
   const {getByTestId} = render(<Calculator />);
   const number9 = getByTestId('number9');
   
@@ -35,4 +35,29 @@ test('Calcutor should display number selected selected', () => {
   const calculatorDisplayText = getByTestId('calculator-display').innerHTML;
 
   expect(calculatorDisplayText).toEqual('9');
+});
+
+test('Digits should concatentate before an operator is selected', () => {
+  const {getByTestId} = render(<Calculator />);
+  const number9 = getByTestId('number9');
+  
+  fireEvent.click(number9);
+  fireEvent.click(number9);
+
+  const calculatorDisplayText = getByTestId('calculator-display').innerHTML;
+
+  expect(calculatorDisplayText).toEqual('99');
+});
+
+test('Display shows "0" when cancel/reset is selcted ', () => {
+  const {getByText, getByTestId} = render(<Calculator />);
+  const number9 = getByTestId('number9');
+  const clearButton = getByText('C');
+  
+  fireEvent.click(number9);
+  fireEvent.click(clearButton);
+
+  const calculatorDisplayText = getByTestId('calculator-display').innerHTML;
+
+  expect(calculatorDisplayText).toEqual('0');
 });

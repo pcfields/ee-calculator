@@ -8,32 +8,50 @@ class Calculator extends Component {
     super(props);
 
     this.state = {
-      currentValue: 0,
-      total: 0,
-      calculationComplete: false
+      firstOperand: 0,
+      displayTotal: '0',
+      operator: null,
+      waitingForSecondOperand: false
     };
   }
   
   onDigitClick = number => e => {
+    const {displayTotal} = this.state;
 
-    this.setState({
-        total: number
+    if(displayTotal === '0') {
+      this.setState({
+        displayTotal: String(number),
+        waitingForSecondOperand: false
       });
+    } else {
+      this.setState({
+        displayTotal: String(displayTotal).concat(number)
+      });
+    }
+
+    
   };
 
   onDecimalClick = e => {
 
   }
 
+  clearDisplay = () => {
+    this.setState({
+      displayTotal: '0',
+      waitingForSecondOperand: false
+    })
+  }
+
   render() {
-    const {total} = this.state;
+    const {displayTotal} = this.state;
 
     return (
       <div className="Calculator">
-        <div className="CalculatorDisplay" data-testid="calculator-display">{total}</div>
+        <div className="CalculatorDisplay" data-testid="calculator-display">{displayTotal}</div>
         <div className="CalculatorKeys">
           <div className="CalculatorInputs">
-          <button className="CalculatorDigitBtn CancelBtn" type="button">C</button>
+          <button className="CalculatorDigitBtn CancelBtn" onClick={this.clearDisplay} data-testid="clear-display" type="button">C</button>
             <div className="CalculatorDigits">
                   <button data-testid="number9" className="CalculatorDigitBtn" onClick={this.onDigitClick(9)} type="button">9</button>
                 
