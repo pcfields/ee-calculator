@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import 'jest-dom/extend-expect';
 
 import './Calculator.css';
 
@@ -11,7 +12,7 @@ class Calculator extends Component {
   render() {
     return (
       <div className="Calculator">
-
+        <div className="CalculatorDisplay" data-testid="calculator-display">0</div>
       </div>
     );
   }
