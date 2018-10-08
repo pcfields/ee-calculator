@@ -14,3 +14,25 @@ test('The calculator display should show should be visible and display zero by d
     expect(calculatorDisplay).toBeInTheDocument();
     expect(calculatorDisplay.innerHTML).toEqual('0');
 });
+
+test('Calculator should display number selected selected', () => {
+  const {getByTestId} = render(<Calculator />);
+  const number9 = getByTestId('number9');
+  
+  fireEvent.click(number9);
+
+  const calculatorDisplayText = getByTestId('calculator-display').innerHTML;
+
+  expect(calculatorDisplayText).toEqual('9');
+});
+
+test('Calcutor should display number selected selected', () => {
+  const {getByTestId} = render(<Calculator />);
+  const number9 = getByTestId('number9');
+  
+  fireEvent.click(number9);
+
+  const calculatorDisplayText = getByTestId('calculator-display').innerHTML;
+
+  expect(calculatorDisplayText).toEqual('9');
+});
