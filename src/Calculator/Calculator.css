@@ -9,8 +9,56 @@
   align-items: center;
   height: 40px;
   padding: 10px;
-  background: #000;
+  background: #312e2e;
   color: #fff;
   font-size: 30px;
   text-align: right;
+}
+
+.CalculatorKeys {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  background: #efefef;
+}
+
+.CalculatorDigitsList {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+}
+
+.CalculatorDigitBtn {
+  width: 80px;
+  height: 80px;
+  outline: 0;
+  border: 1px solid #d8d8d8;
+  font-size: 20px;
+  line-height: 1;
+  flex-grow: 1;
+  background: #fff;
+  color: #000;
+}
+
+.CancelBtn {
+  width: 100%;
+}
+
+.CalculatorOperator {
+  width: 100%;
+  height: 80px;
+  outline: 0;
+  border: 1px solid #d8d8d8;
+  font-size: 20px;
+  background: #1795d4;
+  color: #fff;
+  line-height: 1;
+}
+
+.CalculatorOperatorsList {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  flex-direction: column;
 }
