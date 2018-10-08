@@ -61,3 +61,31 @@ test('Display shows "0" when cancel/reset is selcted ', () => {
 
   expect(calculatorDisplayText).toEqual('0');
 });
+
+test('Display shows decimals when selected ', () => {
+  const {getByText, getByTestId} = render(<Calculator />);
+  const number9 = getByTestId('number9');
+  const decimalButton = getByText('.');
+  
+  fireEvent.click(number9);
+  fireEvent.click(decimalButton);
+  fireEvent.click(number9);
+
+  const calculatorDisplayText = getByTestId('calculator-display').innerHTML;
+
+  expect(calculatorDisplayText).toEqual('9.9');
+});
+
+test('Display only shows 1 decimal when selected ', () => {
+  // const {getByText, getByTestId} = render(<Calculator />);
+  // const number9 = getByTestId('number9');
+  // const decimalButton = getByText('.');
+  
+  // fireEvent.click(number9);
+  // fireEvent.click(decimalButton);
+  // fireEvent.click(number9);
+
+  // const calculatorDisplayText = getByTestId('calculator-display').innerHTML;
+
+  // expect(calculatorDisplayText).toEqual('9.9');
+});

@@ -28,12 +28,14 @@ class Calculator extends Component {
         displayTotal: String(displayTotal).concat(number)
       });
     }
-
-    
   };
 
   onDecimalClick = e => {
+    const {displayTotal} = this.state;
 
+    this.setState({
+      displayTotal: String(displayTotal).concat('.')
+    })
   }
 
   clearDisplay = () => {
