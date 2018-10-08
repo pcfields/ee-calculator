@@ -21,7 +21,7 @@
   background: #efefef;
 }
 
-.CalculatorDigitsList {
+.CalculatorDigits {
   display: flex;
   flex-wrap: wrap;
   margin: 0;
@@ -55,10 +55,7 @@
   line-height: 1;
 }
 
-.CalculatorOperatorsList {
-  display: flex;
+.CalculatorOperators {
   margin: 0;
   padding: 0;
-  list-style: none;
-  flex-direction: column;
 }
