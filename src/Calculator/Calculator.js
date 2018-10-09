@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import CalculatorDigit from './CalculatorDigit';
+
 import './Calculator.css';
 
 export const operations = {
@@ -95,42 +97,56 @@ class Calculator extends Component {
 
         <div className="CalculatorKeys">
           <div className="CalculatorInputs">
-            <button className="CalculatorDigitBtn CancelBtn" onClick={this.clearDisplay} data-testid="clear-display" type="button">C</button>
+            <button className="CalculatorDigit CancelBtn" onClick={this.clearDisplay} data-testid="clear-display" type="button">C</button>
             
             <div className="CalculatorDigits">
-                  <button data-testid="number9" className="CalculatorDigitBtn" onClick={this.onDigitClick(9)} type="button">9</button>
-
-                  <button data-testid="number8" className="CalculatorDigitBtn" onClick={this.onDigitClick(8)} type="button">8</button>
-                
-                  <button data-testid="number7" className="CalculatorDigitBtn" onClick={this.onDigitClick(7)} type="button">7</button>
-                
-                  <button data-testid="number6" className="CalculatorDigitBtn" onClick={this.onDigitClick(6)} type="button">6</button>
-                
-                  <button data-testid="number5" className="CalculatorDigitBtn" onClick={this.onDigitClick(5)} type="button">5</button>
-                
-                  <button data-testid="number4" className="CalculatorDigitBtn" onClick={this.onDigitClick(4)} type="button">4</button>
-                
-                  <button data-testid="number3" className="CalculatorDigitBtn" onClick={this.onDigitClick(3)} type="button">3</button>
-                
-                  <button data-testid="number2" className="CalculatorDigitBtn" onClick={this.onDigitClick(2)} type="button">2</button>
-                
-                  <button data-testid="number1" className="CalculatorDigitBtn" onClick={this.onDigitClick(1)} type="button">1</button>
-                
-                  <button data-testid="number0" className="CalculatorDigitBtn" onClick={this.onDigitClick(0)} type="button">0</button>
-
-                  <button data-testid="decimal" className="CalculatorDigitBtn" onClick={this.onDecimalClick} type="button">.</button>
+                <CalculatorDigit digit="9" onDigitClick={this.onDigitClick(9)} />
+                <CalculatorDigit digit="8" onDigitClick={this.onDigitClick(8)} />
+                <CalculatorDigit digit="7" onDigitClick={this.onDigitClick(7)} />
+                <CalculatorDigit digit="6" onDigitClick={this.onDigitClick(6)} />
+                <CalculatorDigit digit="5" onDigitClick={this.onDigitClick(5)} />
+                <CalculatorDigit digit="4" onDigitClick={this.onDigitClick(4)} />
+                <CalculatorDigit digit="3" onDigitClick={this.onDigitClick(3)} />
+                <CalculatorDigit digit="2" onDigitClick={this.onDigitClick(2)} />
+                <CalculatorDigit digit="1" onDigitClick={this.onDigitClick(1)} />
+                <CalculatorDigit digit="0" onDigitClick={this.onDigitClick(0)} />
+                <CalculatorDigit digit="." onDigitClick={this.onDecimalClick} />
             </div>
           </div>
+
           <div className="CalculatorOperators">
-              <button className="CalculatorOperator" onClick={this.onOperatorClick('divide')} type="button">/</button>
+              <button 
+                className="CalculatorOperator" 
+                onClick={this.onOperatorClick('divide')} 
+                type="button">/</button>
             
-              <button className="CalculatorOperator" onClick={this.onOperatorClick('multiply')} type="button">*</button>
+              <button 
+                className="CalculatorOperator" 
+                onClick={this.onOperatorClick('multiply')} 
+                type="button">
+                *
+              </button>
             
-              <button className="CalculatorOperator" onClick={this.onOperatorClick('subtract')} type="button">-</button>
+              <button 
+                className="CalculatorOperator" 
+                onClick={this.onOperatorClick('subtract')} 
+                type="button">
+                -
+              </button>
             
-              <button className="CalculatorOperator" onClick={this.onOperatorClick('add')} type="button">+</button>
+              <button 
+                className="CalculatorOperator" 
+                onClick={this.onOperatorClick('add')} 
+                type="button">
+                +
+              </button>
             
-              <button className="CalculatorOperator" onClick={this.onOperatorClick('equal')} type="button">=</button>
+              <button 
+                className="CalculatorOperator" 
+                onClick={this.onOperatorClick('equal')} 
+                type="button">
+                =
+              </button>
           </div>
         </div>
       </div>
