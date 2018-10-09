@@ -2,61 +2,104 @@ import React, { Component } from 'react';
 
 import './Calculator.css';
 
+export const operations = {
+  add: (operand1, operand2) => Number(operand1) + Number(operand2),
+  subtract: (operand1, operand2) => Number(operand1) - Number(operand2),
+  divide: (operand1, operand2) => operand2 === 0 ? `Can't divide by zero` :Number(operand1) / Number(operand2),
+  multiply: (operand1, operand2) =>  Number(operand1) * Number(operand2),
+  equal: (operand1, operand2) =>  Number(operand2)
+}
+ 
 
 class Calculator extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      firstOperand: 0,
-      displayTotal: '0',
+      displayValue: '0',
+      firstOperand: null,
       operator: null,
       waitingForSecondOperand: false
     };
   }
   
-  onDigitClick = number => e => {
-    const {displayTotal} = this.state;
+  onDigitClick = digit => e => {
+    const {displayValue, waitingForSecondOperand} = this.state;
+    const getUpdatedDisplayValue = (digit, displayValue) => displayValue === '0'? String(digit) : String(displayValue).concat(digit);
 
-    if(displayTotal === '0') {
+    if(waitingForSecondOperand) {
       this.setState({
-        displayTotal: String(number),
+        displayValue: String(digit),
         waitingForSecondOperand: false
       });
     } else {
       this.setState({
-        displayTotal: String(displayTotal).concat(number)
+        displayValue: getUpdatedDisplayValue(digit, displayValue)
       });
     }
   };
 
   onDecimalClick = e => {
-    const {displayTotal} = this.state;
+    const {displayValue} = this.state;
+    const doesNotAlreadyContainDot = !displayValue.includes('.');
 
-    this.setState({
-      displayTotal: String(displayTotal).concat('.')
-    })
+    if(doesNotAlreadyContainDot){
+      this.setState({
+        displayValue: String(displayValue).concat('.')
+      });  
+    }
+  }
+
+  onOperatorClick = operatorClicked => { 
+    const selectedOperator = operatorClicked;
+
+    return e => {
+      const {displayValue, firstOperand, operator} = this.state;
+      const currentValue = Number(displayValue);
+
+      if(firstOperand === null) {
+        this.setState({
+          firstOperand: currentValue
+        })
+      } else if(operator) {
+        const totalFromOperands = operations[operator](firstOperand,currentValue);
+
+        this.setState({
+          firstOperand: totalFromOperands,
+          displayValue: String(totalFromOperands)
+        });
+      }
+
+      this.setState({
+        waitingForSecondOperand: true,
+        operator: selectedOperator
+      })
+    }
   }
 
   clearDisplay = () => {
     this.setState({
-      displayTotal: '0',
+      displayValue: '0',
+      firstOperand: null,
+      operator: null,
       waitingForSecondOperand: false
     })
   }
 
   render() {
-    const {displayTotal} = this.state;
+    const {displayValue} = this.state;
 
     return (
       <div className="Calculator">
-        <div className="CalculatorDisplay" data-testid="calculator-display">{displayTotal}</div>
+        <div className="CalculatorDisplay" data-testid="calculator-display">{displayValue}</div>
+
         <div className="CalculatorKeys">
           <div className="CalculatorInputs">
-          <button className="CalculatorDigitBtn CancelBtn" onClick={this.clearDisplay} data-testid="clear-display" type="button">C</button>
+            <button className="CalculatorDigitBtn CancelBtn" onClick={this.clearDisplay} data-testid="clear-display" type="button">C</button>
+            
             <div className="CalculatorDigits">
                   <button data-testid="number9" className="CalculatorDigitBtn" onClick={this.onDigitClick(9)} type="button">9</button>
-                
+
                   <button data-testid="number8" className="CalculatorDigitBtn" onClick={this.onDigitClick(8)} type="button">8</button>
                 
                   <button data-testid="number7" className="CalculatorDigitBtn" onClick={this.onDigitClick(7)} type="button">7</button>
@@ -79,15 +122,15 @@ class Calculator extends Component {
             </div>
           </div>
           <div className="CalculatorOperators">
-              <button className="CalculatorOperator" type="button">/</button>
+              <button className="CalculatorOperator" onClick={this.onOperatorClick('divide')} type="button">/</button>
             
-              <button className="CalculatorOperator" type="button">*</button>
+              <button className="CalculatorOperator" onClick={this.onOperatorClick('multiply')} type="button">*</button>
             
-              <button className="CalculatorOperator" type="button">-</button>
+              <button className="CalculatorOperator" onClick={this.onOperatorClick('subtract')} type="button">-</button>
             
-              <button className="CalculatorOperator" type="button">+</button>
+              <button className="CalculatorOperator" onClick={this.onOperatorClick('add')} type="button">+</button>
             
-              <button className="CalculatorOperator" type="button">=</button>
+              <button className="CalculatorOperator" onClick={this.onOperatorClick('equal')} type="button">=</button>
           </div>
         </div>
       </div>

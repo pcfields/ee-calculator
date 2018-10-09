@@ -2,7 +2,7 @@ import React from 'react';
 import { render, cleanup, fireEvent } from 'react-testing-library';
 import 'jest-dom/extend-expect';
 
-import Calculator from './Calculator';
+import Calculator, {operations} from './Calculator';
 
 afterEach(cleanup);
 
@@ -62,7 +62,7 @@ test('Display shows "0" when cancel/reset is selcted ', () => {
   expect(calculatorDisplayText).toEqual('0');
 });
 
-test('Display shows decimals when selected ', () => {
+test('Display shows decimals when selected', () => {
   const {getByText, getByTestId} = render(<Calculator />);
   const number9 = getByTestId('number9');
   const decimalButton = getByText('.');
@@ -76,16 +76,132 @@ test('Display shows decimals when selected ', () => {
   expect(calculatorDisplayText).toEqual('9.9');
 });
 
-test('Display only shows 1 decimal when selected ', () => {
-  // const {getByText, getByTestId} = render(<Calculator />);
-  // const number9 = getByTestId('number9');
-  // const decimalButton = getByText('.');
+test('Display total only shows 1 decimal when multiple decimals are selected ', () => {
+  const {getByText, getByTestId} = render(<Calculator />);
+  const number9 = getByTestId('number9');
+  const decimalButton = getByText('.');
   
-  // fireEvent.click(number9);
-  // fireEvent.click(decimalButton);
-  // fireEvent.click(number9);
+  fireEvent.click(number9);
+  fireEvent.click(decimalButton);
+  fireEvent.click(number9);
+  fireEvent.click(decimalButton);
 
-  // const calculatorDisplayText = getByTestId('calculator-display').innerHTML;
+  const calculatorDisplayText = getByTestId('calculator-display').innerHTML;
 
-  // expect(calculatorDisplayText).toEqual('9.9');
+  expect(calculatorDisplayText).toEqual('9.9');
 });
+
+
+test('Adding 4 + 3 should displays 7', () => {
+  const {getByText, getByTestId} = render(<Calculator />);
+  const number4 = getByTestId('number4');
+  const number3 = getByTestId('number3');
+  const addButton = getByText('+');
+  const equalButton = getByText('=');
+
+
+  fireEvent.click(number4);
+  fireEvent.click(addButton);
+  fireEvent.click(number3);
+  fireEvent.click(equalButton);
+
+  const calculatorDisplayText = getByTestId('calculator-display').innerHTML;
+
+  expect(calculatorDisplayText).toEqual('7');
+});
+
+test('Subtracting 4 - 3 should displays 1', () => {
+  const {getByText, getByTestId} = render(<Calculator />);
+  const number4 = getByTestId('number4');
+  const number3 = getByTestId('number3');
+  const subtractButton = getByText('-');
+  const equalButton = getByText('=');
+
+
+  fireEvent.click(number4);
+  fireEvent.click(subtractButton);
+  fireEvent.click(number3);
+  fireEvent.click(equalButton);
+
+  const calculatorDisplayText = getByTestId('calculator-display').innerHTML;
+
+  expect(calculatorDisplayText).toEqual('1');
+});
+
+test('Multipling 4 x 3 should displays 12', () => {
+  const {getByText, getByTestId} = render(<Calculator />);
+  const number4 = getByTestId('number4');
+  const number3 = getByTestId('number3');
+  const multiplyButton = getByText('*');
+  const equalButton = getByText('=');
+
+
+  fireEvent.click(number4);
+  fireEvent.click(multiplyButton);
+  fireEvent.click(number3);
+  fireEvent.click(equalButton);
+
+  const calculatorDisplayText = getByTestId('calculator-display').innerHTML;
+
+  expect(calculatorDisplayText).toEqual('12');
+});
+
+test('Dividing 12/3 should displays 4', () => {
+  const {getByText, getByTestId} = render(<Calculator />);
+  const number1 = getByTestId('number1');
+  const number2 = getByTestId('number2');
+  const number3 = getByTestId('number3');
+  const divideButton = getByText('/');
+  const equalButton = getByText('=');
+
+
+  fireEvent.click(number1);
+  fireEvent.click(number2);
+  fireEvent.click(divideButton);
+  fireEvent.click(number3);
+  fireEvent.click(equalButton);
+
+  const calculatorDisplayText = getByTestId('calculator-display').innerHTML;
+
+  expect(calculatorDisplayText).toEqual('4');
+});
+
+
+test('Add operation should sum 2 numbers correctly', () => {
+  const add3And4 = operations.add('3',4);
+
+  expect(add3And4).toEqual(7);
+});
+
+test('Subtract operation should subtract 2 numbers correctly', () => {
+  const subtract3From4 = operations.subtract('4',3);
+
+  expect(subtract3From4).toEqual(1);
+});
+
+test('Subtract operation should give negative number if second operand is larger than first', () => {
+  const subtract6From4 = operations.subtract('4',6);
+
+  expect(subtract6From4).toEqual(-2);
+});
+
+test('Divide operation should divide operands correctly', () => {
+  const divide6and3 = operations.divide('6',3);
+
+  expect(divide6and3).toEqual(2);
+});
+
+test('Divide operation should return a message if seconard operand is 0', () => {
+  const divide6and0 = operations.divide('6',0);
+
+  expect(divide6and0).toEqual(`Can't divide by zero`);
+});
+
+test('Multiply operation should return correct result', () => {
+  const multiply4x3 = operations.multiply('4',3);
+
+  expect(multiply4x3).toEqual(12);
+});
+
+
+
