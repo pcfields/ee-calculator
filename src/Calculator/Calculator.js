@@ -9,7 +9,7 @@ export const operations = {
   subtract: (operand1, operand2) => Number(operand1) - Number(operand2),
   divide: (operand1, operand2) => operand2 === 0 ? `Can't divide by zero` :Number(operand1) / Number(operand2),
   multiply: (operand1, operand2) =>  Number(operand1) * Number(operand2),
-  equal: (operand1, operand2) =>  Number(operand2)
+  equal: (operand1, operand2) =>  Number(operand2),
 }
  
 
@@ -27,7 +27,8 @@ class Calculator extends Component {
   
   onDigitClick = digit => e => {
     const {displayValue, waitingForSecondOperand} = this.state;
-    const getUpdatedDisplayValue = (digit, displayValue) => displayValue === '0'? String(digit) : String(displayValue).concat(digit);
+    const getUpdatedDisplayValue = (digit, displayValue) =>
+      displayValue === '0' ? String(digit) : String(displayValue).concat(digit);
 
     if(waitingForSecondOperand) {
       this.setState({

@@ -6,6 +6,9 @@ import Calculator, {operations} from './Calculator';
 
 afterEach(cleanup);
 
+describe('Calculator', () => {
+  
+
 test('The calculator display should show should be visible and display zero by default', () => {
     const {getByTestId} = render(<Calculator />);
 
@@ -15,7 +18,7 @@ test('The calculator display should show should be visible and display zero by d
     expect(calculatorDisplay.innerHTML).toEqual('0');
 });
 
-test('Calculator should display number selected selected', () => {
+test('Calculator should display number selected', () => {
   const {getByTestId} = render(<Calculator />);
   const number9 = getByTestId('number9');
   
@@ -26,16 +29,25 @@ test('Calculator should display number selected selected', () => {
   expect(calculatorDisplayText).toEqual('9');
 });
 
-test('Calculator should display number selected selected', () => {
-  const {getByTestId} = render(<Calculator />);
-  const number9 = getByTestId('number9');
+test('Calculator should display number selected', () => {
+  const {getByTestId, getByText} = render(<Calculator />);
+  const digits = [0,1,2,3,4,5,6,7,8,9];
   
-  fireEvent.click(number9);
+  
+  digits.forEach(digit => {
+    const number = getByTestId(`number${digit}`);
+    const clearButton = getByText('C');
+    
+    fireEvent.click(number);
 
-  const calculatorDisplayText = getByTestId('calculator-display').innerHTML;
+    const calculatorDisplayText = getByTestId('calculator-display').innerHTML;
 
-  expect(calculatorDisplayText).toEqual('9');
+    expect(calculatorDisplayText).toEqual(digit.toString());
+  
+    fireEvent.click(clearButton);
+  })
 });
+
 
 test('Digits should concatentate before an operator is selected', () => {
   const {getByTestId} = render(<Calculator />);
@@ -203,5 +215,12 @@ test('Multiply operation should return correct result', () => {
   expect(multiply4x3).toEqual(12);
 });
 
+test('Multiply operation results in exponent result', () => {
+  const multiply4x3 = operations.multiply(9999999999, 888888888);
+
+  expect(multiply4x3).toEqual(12);
+});
 
 
+
+});
