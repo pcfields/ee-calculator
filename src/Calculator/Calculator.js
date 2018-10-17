@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import CalculatorDigit from './CalculatorDigit';
+import CalculatorOperator from './CalculatorOperator';
 
 import './Calculator.css';
 
@@ -53,10 +54,15 @@ class Calculator extends Component {
     }
   }
 
+  onPercentClick = e => {
+    
+  }
+
   onOperatorClick = operatorClicked => { 
     const selectedOperator = operatorClicked;
 
     return e => {
+
       const {displayValue, firstOperand, operator} = this.state;
       const currentValue = Number(displayValue);
 
@@ -91,63 +97,65 @@ class Calculator extends Component {
 
   render() {
     const {displayValue} = this.state;
+    const digits =[9,8,7,6,5,4,3,2,1,0];
 
     return (
       <div className="Calculator">
-        <div className="CalculatorDisplay" data-testid="calculator-display">{displayValue}</div>
+        <div 
+          className="CalculatorDisplay" 
+          data-testid="calculator-display">
+            {displayValue}
+        </div>
 
         <div className="CalculatorKeys">
           <div className="CalculatorInputs">
-            <button className="CalculatorDigit CancelBtn" onClick={this.clearDisplay} data-testid="clear-display" type="button">C</button>
+            <button 
+              className="CalculatorDigit CancelBtn" 
+              onClick={this.clearDisplay} 
+              data-testid="clear-display" 
+              type="button">
+                C
+            </button>
             
             <div className="CalculatorDigits">
-                <CalculatorDigit digit="9" onDigitClick={this.onDigitClick(9)} />
-                <CalculatorDigit digit="8" onDigitClick={this.onDigitClick(8)} />
-                <CalculatorDigit digit="7" onDigitClick={this.onDigitClick(7)} />
-                <CalculatorDigit digit="6" onDigitClick={this.onDigitClick(6)} />
-                <CalculatorDigit digit="5" onDigitClick={this.onDigitClick(5)} />
-                <CalculatorDigit digit="4" onDigitClick={this.onDigitClick(4)} />
-                <CalculatorDigit digit="3" onDigitClick={this.onDigitClick(3)} />
-                <CalculatorDigit digit="2" onDigitClick={this.onDigitClick(2)} />
-                <CalculatorDigit digit="1" onDigitClick={this.onDigitClick(1)} />
-                <CalculatorDigit digit="0" onDigitClick={this.onDigitClick(0)} />
-                <CalculatorDigit digit="." onDigitClick={this.onDecimalClick} />
+              {digits.map(digit => 
+                <CalculatorDigit key={digit} digit={`${digit}`} onDigitClick={this.onDigitClick(digit)} /> 
+              )}
+            
+              <CalculatorDigit 
+                digit="." 
+                onDigitClick={this.onDecimalClick} 
+              />
             </div>
           </div>
 
           <div className="CalculatorOperators">
-              <button 
-                className="CalculatorOperator" 
+             <CalculatorOperator
+                text="/" 
                 onClick={this.onOperatorClick('divide')} 
-                type="button">/</button>
+              />
+                 
             
-              <button 
-                className="CalculatorOperator" 
+             <CalculatorOperator
+                text="*" 
                 onClick={this.onOperatorClick('multiply')} 
-                type="button">
-                *
-              </button>
+              />
+               
             
-              <button 
-                className="CalculatorOperator" 
+             <CalculatorOperator
+                text="-" 
                 onClick={this.onOperatorClick('subtract')} 
-                type="button">
-                -
-              </button>
+              />
             
-              <button 
-                className="CalculatorOperator" 
+             <CalculatorOperator
+                text="+"
                 onClick={this.onOperatorClick('add')} 
-                type="button">
-                +
-              </button>
-            
-              <button 
-                className="CalculatorOperator" 
+              />
+                          
+             <CalculatorOperator
+                text="=" 
                 onClick={this.onOperatorClick('equal')} 
-                type="button">
-                =
-              </button>
+              />
           </div>
         </div>
       </div>
