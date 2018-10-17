@@ -21,7 +21,8 @@ class Calculator extends Component {
       displayValue: '0',
       firstOperand: null,
       operator: null,
-      waitingForSecondOperand: false
+      waitingForSecondOperand: false,
+      memoryAdd: 0
     };
   }
   
@@ -88,6 +89,23 @@ class Calculator extends Component {
     })
   }
 
+  onMemoryRecall = () => {
+    const {memoryAdd} = this.state;
+
+    this.setState({
+      displayValue: Number(memoryAdd)
+    })
+  }
+
+  onMemoryAdd = () => {
+    const {displayValue, memoryAdd} = this.state;
+
+    this.setState({
+      memoryAdd: Number(memoryAdd) + Number(displayValue)
+    });
+
+  }
+
   render() {
     const {displayValue} = this.state;
 
@@ -98,7 +116,11 @@ class Calculator extends Component {
         <div className="CalculatorKeys">
           <div className="CalculatorInputs">
             <button className="CalculatorDigit CancelBtn" onClick={this.clearDisplay} data-testid="clear-display" type="button">C</button>
-            
+
+            <button type="button" onClick={this.onMemoryRecall} >MR</button>
+
+            <button type="button" onClick={this.onMemoryAdd} >M+</button>
+
             <div className="CalculatorDigits">
                 <CalculatorDigit digit="9" onDigitClick={this.onDigitClick(9)} />
                 <CalculatorDigit digit="8" onDigitClick={this.onDigitClick(8)} />

@@ -37,6 +37,72 @@ test('Calculator should display number selected selected', () => {
   expect(calculatorDisplayText).toEqual('9');
 });
 
+test('Calculator displays memory recall button', () => {
+  const {getByText} = render(<Calculator />);
+  const memoryRecallButton = getByText('MR');
+
+  expect(memoryRecallButton).toBeInTheDocument()
+});
+
+test('Memory recall displays zero when clicked after entering a number', () => {
+  const { getByText, getByTestId} = render(<Calculator />);
+  const memoryRecallButton = getByText('MR');
+  const number5 = getByTestId('number5');
+
+  fireEvent.click(number5);
+
+  fireEvent.click(memoryRecallButton);
+
+  const calculatorDisplayText = getByTestId('calculator-display').innerHTML;
+  
+  expect(calculatorDisplayText).toEqual('0');
+});
+
+test('Memory-add is displayed on screen', () => {
+  const {getByText} = render(<Calculator />);
+  const memoryAddButton = getByText('M+');
+
+  expect(memoryAddButton).toBeInTheDocument()
+});
+
+test('Memory-add saves number and can be recalled', () => {
+  const {getByText, getByTestId} = render(<Calculator />);
+
+  const memoryAddButton = getByText('M+');
+  const memoryRecallButton = getByText('MR');
+  const number5 = getByTestId('number5');
+
+  fireEvent.click(number5);
+
+  fireEvent.click(memoryAddButton);
+
+  fireEvent.click(memoryRecallButton);
+
+  const calculatorDisplayText = getByTestId('calculator-display').innerHTML;
+  
+  expect(calculatorDisplayText).toEqual('5');
+});
+
+test('Memory-add adds  current number to existing number saved in memory', () => {
+  const {getByText, getByTestId} = render(<Calculator />);
+
+  const memoryAddButton = getByText('M+');
+  const memoryRecallButton = getByText('MR');
+  const number5 = getByTestId('number5');
+
+  fireEvent.click(number5);
+
+  fireEvent.click(memoryAddButton);
+
+  fireEvent.click(memoryAddButton);
+
+  fireEvent.click(memoryRecallButton);
+
+  const calculatorDisplayText = getByTestId('calculator-display').innerHTML;
+  
+  expect(calculatorDisplayText).toEqual('10');
+});
+
 test('Digits should concatentate before an operator is selected', () => {
   const {getByTestId} = render(<Calculator />);
   const number9 = getByTestId('number9');
@@ -202,6 +268,7 @@ test('Multiply operation should return correct result', () => {
 
   expect(multiply4x3).toEqual(12);
 });
+
 
 
 
