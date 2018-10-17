@@ -24,6 +24,7 @@
 .CalculatorDigits {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row-reverse;
   margin: 0;
   padding: 0;
 }
