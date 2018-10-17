@@ -258,4 +258,10 @@ describe('Calculator', () => {
     expect(multiply2DecimalNumbers).toEqual(EXPECTED_RESULT);
   });
 
+  test('Percentage operation returns correct percent value', () => {
+    const percentageOfNumber = operations.percentage(9);
+
+    expect(percentageOfNumber).toEqual(0.09);
+  });
+
 });

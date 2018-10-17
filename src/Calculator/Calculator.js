@@ -11,6 +11,7 @@ export const operations = {
   divide: (operand1, operand2) => operand2 === 0 ? `Can't divide by zero` :Number(operand1) / Number(operand2),
   multiply: (operand1, operand2) =>  Number(operand1) * Number(operand2),
   equal: (operand1, operand2) =>  Number(operand2),
+  percentage: (operand) => Number(operand)/100
 }
  
 
