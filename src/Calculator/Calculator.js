@@ -59,6 +59,32 @@ class Calculator extends Component {
     
   }
 
+  calculatePercentage = () => {
+    const {displayValue, firstOperand, operator, waitingForSecondOperand} = this.state;
+
+    const currentValue = Number(displayValue);
+    const firstOperandValue = Number(firstOperand);
+
+    if(!currentValue || currentValue === 0) {
+      return;
+    }
+
+    if(waitingForSecondOperand) {
+       const percentageOfNumber = operations.percentage(currentValue);
+
+       this.setState({
+         displayValue: percentageOfNumber
+       });
+    } else {
+      const combineValueFromOperands = operations[operator](firstOperandValue, currentValue);
+
+      const percentageOfNumber = operations.percentage(combineValueFromOperands);
+      this.setState({
+        displayValue: percentageOfNumber
+      });
+    }
+  };
+
   onOperatorClick = operatorClicked => { 
     const selectedOperator = operatorClicked;
 
@@ -156,6 +182,12 @@ class Calculator extends Component {
              <CalculatorOperator
                 text="=" 
                 onClick={this.onOperatorClick('equal')} 
+              />
+
+             <CalculatorOperator
+                data-testid="percentage-btn"
+                text="%" 
+                onClick={this.calculatePercentage} 
               />
           </div>
         </div>

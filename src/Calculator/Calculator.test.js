@@ -191,6 +191,25 @@ describe('Calculator', () => {
     expect(calculatorDisplayText).toEqual('12');
   });
 
+  test.skip('Percentage button ', () => {
+    const {
+      getByTestId,
+      getByText
+    } = render( <Calculator /> );
+
+    const number5 = getByText('5');
+
+    fireEvent.click(number5);
+
+    const percentageButton = getByText('%');
+
+    fireEvent.click(percentageButton);
+    
+    const calculatorDisplayText = getByTestId('calculator-display').innerHTML;
+
+    expect(calculatorDisplayText).toEqual('0.05');
+  });
+
   test('Dividing 12/3 should displays 4', () => {
     const {
       getByText,
@@ -263,5 +282,7 @@ describe('Calculator', () => {
 
     expect(percentageOfNumber).toEqual(0.09);
   });
+
+  
 
 });
